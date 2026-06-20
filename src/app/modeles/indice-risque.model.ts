@@ -1,1 +1,5 @@
-export interface IndiceRisque {}
+export interface IndiceRisque {
+    score: number;
+    libelle: string;
+    couleur: string;
+}
