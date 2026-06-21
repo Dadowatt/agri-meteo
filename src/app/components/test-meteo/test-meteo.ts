@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Meteo } from '../../services/meteo';
+import { Geolocalisation } from '../../services/geolocalisation';
 
 @Component({
   selector: 'app-test-meteo',
@@ -8,34 +9,35 @@ import { Meteo } from '../../services/meteo';
   styleUrl: './test-meteo.css',
 })
 export class TestMeteo {
-    private meteo = inject(Meteo);
 
+  private meteo = inject(Meteo);
 
+  private geo = inject(Geolocalisation);
   ngOnInit(){
-
-    this.meteo.getWeatherByRegion('Dakar')
+    this.geo
+      .getRegion()
       .subscribe({
 
-        next: (data) => {
-
-          console.log(
-            "Données météo reçues :",
-            data
-          );
-
+        next: (region) => {
+          console.log("Région détectée :", region);
+          this.meteo
+            .getWeatherByRegion(region)
+            .subscribe({
+              next: (data) => {
+                console.log(
+                  "Données météo reçues :",
+                  data
+                );
+              },
+              error: (err) => {
+                console.error("Erreur météo :", err);
+              }
+            });
         },
-
-
         error: (err) => {
-
-          console.error(
-            "Erreur météo :",
-            err
-          );
-
+          console.error("Erreur localisation :",err);
         }
-
       });
-
   }
+
 }
