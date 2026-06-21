@@ -19,17 +19,8 @@ export class Meteo {
 
         const url = `${environment.apiUrl}?lat=${coordonnees.latitude}&lon=${coordonnees.longitude}&units=metric&lang=fr&appid=${environment.apiKey}`;
 
-        return this.http
-            .get<WeatherApiResponse>(url)
-            .pipe(
-
-                map((data) =>
-                    this.transformWeatherData(
-                        data,
-                        region
-                    )
-                )
-            );
+        return this.http.get<WeatherApiResponse>(url).pipe(map((data) => 
+            this.transformWeatherData(data, region)));
     }
     calculateRisk(temperature: number, humidite: number):IndiceRisque {
         if (temperature > 38 && humidite < 60) {
@@ -81,41 +72,22 @@ export class Meteo {
     });
 
     return historique;
-}
-
+    }
     transformWeatherData(
     data: WeatherApiResponse,
-    region: string
-): DonneesMeteo {
+    region: string): DonneesMeteo {
 
-    const temperature = Number(
-        data.main.temp.toFixed(2)
-    );
-
+    const temperature = Number(data.main.temp.toFixed(2));
 
     const humidite = data.main.humidity;
 
+    const condition = data.weather[0].description;
 
-    const condition =
-        data.weather[0].description;
+    const icone = data.weather[0].icon;
 
+    const risque = this.calculateRisk(temperature, humidite);
 
-    const icone =
-        data.weather[0].icon;
-
-
-    const risque =
-        this.calculateRisk(
-            temperature,
-            humidite
-        );
-
-
-    const historique =
-        this.generateHistory(
-            temperature
-        );
-
+    const historique = this.generateHistory(temperature);
 
     return {
 
