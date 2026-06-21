@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { TableauBord } from "../../components/tableau-bord/tableau-bord";
+import { RouterOutlet } from '@angular/router';
+import { CarteSenegal } from "../../components/carte-senegal/carte-senegal";
+;
 
 @Component({
   selector: 'app-accueil',
