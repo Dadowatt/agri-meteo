@@ -1,4 +1,4 @@
-import { inject, Service } from '@angular/core';
+import { inject, Injectable} from '@angular/core';
 import { IndiceRisque } from '../modeles/indice-risque.model';
 import { DonneeGraphique } from '../modeles/donnee-graphique.model';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +9,9 @@ import { WeatherApiResponse } from '../modeles/weather-api-response.model';
 import { DonneesMeteo } from '../modeles/donnees-meteo.model';
 
 
-@Service()
+@Injectable({
+  providedIn: 'root'
+})
 export class Meteo {
     private http = inject(HttpClient);
 
@@ -73,6 +75,7 @@ export class Meteo {
 
     return historique;
     }
+    
     transformWeatherData(
     data: WeatherApiResponse,
     region: string): DonneesMeteo {
