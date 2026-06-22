@@ -3,7 +3,7 @@ import { IndiceRisque } from '../modeles/indice-risque.model';
 import { DonneeGraphique } from '../modeles/donnee-graphique.model';
 import { HttpClient } from '@angular/common/http';
 import { REGIONS } from '../constants/regions';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, startWith } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { WeatherApiResponse } from '../modeles/weather-api-response.model';
 import { DonneesMeteo } from '../modeles/donnees-meteo.model';
@@ -26,14 +26,14 @@ export class Meteo {
             this.transformWeatherData(data, region)));
     }
     calculateRisk(temperature: number, humidite: number):IndiceRisque {
-        if (temperature > 38 && humidite < 60) {
+        if (temperature > 38 && humidite > 60) {
             return {
                 score: 85,
                 libelle: 'Risque canicule élevé',
-                couleur: "#ff4500"
+                couleur: '#FF4500'
             };
         }
-        if (temperature > 30 || humidite > 40) {
+        if (temperature > 30 || humidite > 70) {
             return {
                 score: 40,
                 libelle: 'Risque Modéré',
@@ -77,9 +77,7 @@ export class Meteo {
     return historique;
     }
     
-    transformWeatherData(
-    data: WeatherApiResponse,
-    region: string): DonneesMeteo {
+    transformWeatherData(data: WeatherApiResponse, region: string): DonneesMeteo {
 
     const temperature = Number(data.main.temp.toFixed(2));
 
@@ -112,12 +110,9 @@ export class Meteo {
     };
 }
 
-    getWeatherState(region: string) {
-    const etat: EtatMeteo = {
-        loading: true
-    };
+getWeatherState(region: string): Observable<EtatMeteo> {
 
-    return this.getWeatherByRegion(region).pipe(
+  return this.getWeatherByRegion(region).pipe(
 
     map((data) => {
 
@@ -128,12 +123,20 @@ export class Meteo {
 
     }),
 
-    catchError((error) => {
+    startWith({
+      loading: true
+    } as EtatMeteo),
+
+    catchError(() => {
+
       return of({
         loading: false,
         error: "Impossible de récupérer les données météo"
       } as EtatMeteo);
+
     })
+
   );
+
 }
 }
