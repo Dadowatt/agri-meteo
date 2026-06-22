@@ -3,10 +3,11 @@ import { IndiceRisque } from '../modeles/indice-risque.model';
 import { DonneeGraphique } from '../modeles/donnee-graphique.model';
 import { HttpClient } from '@angular/common/http';
 import { REGIONS } from '../constants/regions';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { WeatherApiResponse } from '../modeles/weather-api-response.model';
 import { DonneesMeteo } from '../modeles/donnees-meteo.model';
+import { EtatMeteo } from '../modeles/etat-meteo.model';
 
 
 @Injectable({
@@ -109,6 +110,30 @@ export class Meteo {
         risque: risque
 
     };
+}
 
+    getWeatherState(region: string) {
+    const etat: EtatMeteo = {
+        loading: true
+    };
+
+    return this.getWeatherByRegion(region).pipe(
+
+    map((data) => {
+
+      return {
+        loading: false,
+        data: data
+      } as EtatMeteo;
+
+    }),
+
+    catchError((error) => {
+      return of({
+        loading: false,
+        error: "Impossible de récupérer les données météo"
+      } as EtatMeteo);
+    })
+  );
 }
 }

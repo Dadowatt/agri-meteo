@@ -13,6 +13,7 @@ export class TestMeteo {
   private meteo = inject(Meteo);
 
   private geo = inject(Geolocalisation);
+
   ngOnInit(){
     this.geo
       .getRegion()
@@ -21,12 +22,12 @@ export class TestMeteo {
         next: (region) => {
           console.log("Région détectée :", region);
           this.meteo
-            .getWeatherByRegion(region)
+            .getWeatherState(region)
             .subscribe({
-              next: (data) => {
+              next: (etat) => {
                 console.log(
-                  "Données météo reçues :",
-                  data
+                  "Etat météo reçues :",
+                  etat
                 );
               },
               error: (err) => {
