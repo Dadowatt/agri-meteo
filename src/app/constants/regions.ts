@@ -52,7 +52,7 @@ export const REGIONS: { [key: string]: CoordonneesRegion } =
     longitude: -13.25
   },
 
-  "saint-luis": {
+  "saint-louis": {
     latitude: 16.03,
     longitude: -16.48
   },
