@@ -4,9 +4,8 @@ export interface CoordonneesRegion {
 }
 
 
-export const REGIONS: {
-  [key: string]: CoordonneesRegion
-} = {
+export const REGIONS: { [key: string]: CoordonneesRegion } = 
+{
 
   dakar: {
     latitude: 14.7167,
@@ -53,7 +52,7 @@ export const REGIONS: {
     longitude: -13.25
   },
 
-  saintLouis: {
+  "saint-luis": {
     latitude: 16.03,
     longitude: -16.48
   },
