@@ -1,20 +1,7 @@
 @if(etatMeteo().data){
 
-<h2>
-Historique température 7 jours
-</h2>
-
-<ul>
-
-@for(jour of etatMeteo().data?.historique; track jour.jour){
-
-<li>
-{{ jour.jour }} :
-{{ jour.temperature }} °C
-</li>
-
-}
-
-</ul>
+  <app-graphique-meteo
+    [historique]="etatMeteo().data?.historique ?? []">
+  </app-graphique-meteo>
 
 }
