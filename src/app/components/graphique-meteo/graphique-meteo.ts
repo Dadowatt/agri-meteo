@@ -32,7 +32,7 @@ export class GraphiqueMeteo implements AfterViewInit, OnChanges {
     const labels = this.historique.map(item => item.jour);
     const data = this.historique.map(item => item.temperature);
 
-    // détruire ancien chart si existant (important sinon bug Chart.js)
+    // détruire ancien chart si existant
     if (this.chart) {
       this.chart.destroy();
     }

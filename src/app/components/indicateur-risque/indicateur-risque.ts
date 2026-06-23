@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IndiceRisque } from '../../modeles/indice-risque.model';
 
 @Component({
   selector: 'app-indicateur-risque',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './indicateur-risque.html',
   styleUrl: './indicateur-risque.css',
 })
-export class IndicateurRisque {}
+export class IndicateurRisque {
+    @Input() risque!: IndiceRisque;
+}

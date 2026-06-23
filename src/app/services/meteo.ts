@@ -15,15 +15,18 @@ import { EtatMeteo } from '../modeles/etat-meteo.model';
 })
 export class Meteo {
     private http = inject(HttpClient);
-
     getWeatherByRegion(region: string): Observable<DonneesMeteo> {
 
-        const coordonnees = REGIONS[region];
+    // Récupération des coordonnées de la région
+    const coordonnees = REGIONS[region] ?? REGIONS['dakar'];
 
-        const url = `${environment.apiUrl}?lat=${coordonnees.latitude}&lon=${coordonnees.longitude}&units=metric&lang=fr&appid=${environment.apiKey}`;
+    // Construction de l’URL API
+    const url = `${environment.apiUrl}?lat=${coordonnees.latitude}&lon=${coordonnees.longitude}&units=metric&lang=fr&appid=${environment.apiKey}`;
 
-        return this.http.get<WeatherApiResponse>(url).pipe(map((data) => 
-            this.transformWeatherData(data, region)));
+    // Appel API + transformation des données
+    return this.http.get<WeatherApiResponse>(url).pipe(
+        map((data) => this.transformWeatherData(data, region))
+    );
     }
     calculateRisk(temperature: number, humidite: number):IndiceRisque {
         if (temperature > 38 && humidite > 60) {
