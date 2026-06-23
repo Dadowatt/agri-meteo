@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-carte-senegal',
@@ -6,4 +6,11 @@ import { Component } from '@angular/core';
   templateUrl: './carte-senegal.html',
   styleUrl: './carte-senegal.css',
 })
-export class CarteSenegal {}
+export class CarteSenegal {
+  @Output() regionSelectionnee = new EventEmitter<string>();
+
+  selectionnerRegion(region: string){
+    this.regionSelectionnee.emit(region);
+
+  }
+}
