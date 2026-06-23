@@ -11,7 +11,7 @@ export class Geolocalisation {
     getRegion(): Observable<string> {
 
         if (!navigator.geolocation) {
-            return of('Dakar');
+            return of('dakar');
         }
         return from(new Promise<GeolocationPosition>((resolve, reject) => {
                     navigator.geolocation.getCurrentPosition(resolve,reject); // API native du navigateur
@@ -23,7 +23,7 @@ export class Geolocalisation {
                     return this.findRegion(latitude,longitude);
                 }),
                 catchError(() => {
-                    return of('Dakar');
+                    return of('dakar');
                 })
             );
     }
