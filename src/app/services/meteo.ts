@@ -18,12 +18,14 @@ export class Meteo {
     getWeatherByRegion(region: string): Observable<DonneesMeteo> {
 
     // Récupération des coordonnées de la région
-    const coordonnees = REGIONS[region] ?? REGIONS['dakar'];
+    const regionNormalisee = region.toLowerCase();
+
+    const coordonnees =
+        REGIONS[regionNormalisee] ?? REGIONS['dakar'];
 
     // Construction de l’URL API
     const url = `${environment.apiUrl}?lat=${coordonnees.latitude}&lon=${coordonnees.longitude}&units=metric&lang=fr&appid=${environment.apiKey}`;
 
-    // Appel API + transformation des données
     return this.http.get<WeatherApiResponse>(url).pipe(
         map((data) => this.transformWeatherData(data, region))
     );
