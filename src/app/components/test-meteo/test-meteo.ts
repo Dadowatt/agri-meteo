@@ -3,10 +3,11 @@ import { Meteo } from '../../services/meteo';
 import { Geolocalisation } from '../../services/geolocalisation';
 import { JsonPipe } from '@angular/common';
 import { EtatMeteo } from '../../modeles/etat-meteo.model';
+import { GraphiqueMeteo } from "../graphique-meteo/graphique-meteo";
 
 @Component({
   selector: 'app-test-meteo',
-  imports: [JsonPipe],
+  imports: [JsonPipe, GraphiqueMeteo],
   templateUrl: './test-meteo.html',
   styleUrl: './test-meteo.css',
 })
