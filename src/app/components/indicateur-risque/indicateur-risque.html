@@ -1,1 +1,13 @@
-<p>Indicateur de risque prêt</p>
+<div
+  class="badge-risque"
+  [style.background]="risque.couleur">
+
+  <h3>
+    {{ risque.libelle }}
+  </h3>
+
+  <strong>
+    {{ risque.score }} %
+  </strong>
+
+</div>

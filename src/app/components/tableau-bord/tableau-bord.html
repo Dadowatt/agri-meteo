@@ -1,1 +1,51 @@
-<p>Tableau de bord prêt</p>
+@if (etatMeteo().loading) {
+
+<div class="loading">
+  Chargement des données météo...
+</div>
+
+}
+
+@else if (etatMeteo().error) {
+
+<div class="error">
+  {{ etatMeteo().error }}
+</div>
+
+}
+
+@else if (etatMeteo().data) {
+
+<div class="dashboard">
+
+  <h2>
+    {{ etatMeteo().data!.region }}
+  </h2>
+
+  <img
+    [src]="'https://openweathermap.org/img/wn/' + etatMeteo().data!.icone + '@2x.png'"
+    [alt]="etatMeteo().data!.condition">
+
+  <p>
+    🌡 {{ etatMeteo().data!.temperature }} °C
+  </p>
+
+  <p>
+    💧 {{ etatMeteo().data!.humidite }} %
+  </p>
+
+  <p>
+    {{ etatMeteo().data!.condition }}
+  </p>
+
+  <app-indicateur-risque
+    [risque]="etatMeteo().data!.risque">
+  </app-indicateur-risque>
+
+  <app-graphique-meteo
+    [historique]="etatMeteo().data!.historique">
+  </app-graphique-meteo>
+
+</div>
+
+}

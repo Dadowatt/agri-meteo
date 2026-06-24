@@ -1,1 +1,17 @@
-<p>accueil works!</p>
+<div class="page">
+
+  <div class="map-container">
+
+    <app-carte-senegal (regionSelectionnee)="dashboard.chargerRegion($event)">
+    </app-carte-senegal>
+
+  </div>
+
+  <div class="dashboard-container">
+
+    <app-tableau-bord #dashboard>
+    </app-tableau-bord>
+
+  </div>
+
+</div>

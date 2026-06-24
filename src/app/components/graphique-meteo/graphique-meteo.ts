@@ -4,6 +4,7 @@ import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-graphique-meteo',
+  imports: [],
   templateUrl: './graphique-meteo.html',
   styleUrl: './graphique-meteo.css',
 })

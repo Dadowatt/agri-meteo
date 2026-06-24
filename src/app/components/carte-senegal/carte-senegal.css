@@ -1,0 +1,58 @@
+.senegal-map {
+  width: 100%;
+}
+
+.senegal-map svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.senegal-map path {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.senegal-map path:hover {
+  fill: #ffb703 !important;
+  opacity: 0.9;
+}
+
+.selected-region {
+  fill: #ff4500 !important;
+}
+
+.tooltip {
+
+  position: fixed;
+
+  background: #1f2937;
+
+  color: white;
+
+  padding: 8px 12px;
+
+  border-radius: 6px;
+
+  font-size: 14px;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transform: translateY(5px);
+
+  transition: all .15s ease;
+
+  z-index: 1000;
+
+}
+
+
+.tooltip.visible {
+
+  opacity: 1;
+
+  transform: translateY(0);
+
+}

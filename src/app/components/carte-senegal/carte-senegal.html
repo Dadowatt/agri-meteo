@@ -1,1 +1,15 @@
-<p>Carte Sénégal en préparation</p>
+<div
+  #svgContainer
+  class="senegal-map"
+  (mousemove)="deplacerTooltip($event)">
+</div>
+
+<div
+  class="tooltip"
+  [class.visible]="tooltipVisible"
+  [style.left.px]="tooltipX"
+  [style.top.px]="tooltipY">
+
+  {{ regionSurvolee }}
+
+</div>
