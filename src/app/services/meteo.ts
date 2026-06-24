@@ -1,4 +1,4 @@
-import { inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { IndiceRisque } from '../modeles/indice-risque.model';
 import { DonneeGraphique } from '../modeles/donnee-graphique.model';
 import { HttpClient } from '@angular/common/http';
@@ -11,26 +11,26 @@ import { EtatMeteo } from '../modeles/etat-meteo.model';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class Meteo {
     private http = inject(HttpClient);
     getWeatherByRegion(region: string): Observable<DonneesMeteo> {
 
-    // Récupération des coordonnées de la région
-    const regionNormalisee = region.toLowerCase();
+        // Récupération des coordonnées de la région
+        const regionNormalisee = region.toLowerCase();
 
-    const coordonnees =
-        REGIONS[regionNormalisee] ?? REGIONS['dakar'];
+        const coordonnees =
+            REGIONS[regionNormalisee] ?? REGIONS['dakar'];
 
-    // Construction de l’URL API
-    const url = `${environment.apiUrl}?lat=${coordonnees.latitude}&lon=${coordonnees.longitude}&units=metric&lang=fr&appid=${environment.apiKey}`;
+        // Construction de l’URL API
+        const url = `${environment.apiUrl}?lat=${coordonnees.latitude}&lon=${coordonnees.longitude}&units=metric&lang=fr&appid=${environment.apiKey}`;
 
-    return this.http.get<WeatherApiResponse>(url).pipe(
-        map((data) => this.transformWeatherData(data, region))
-    );
+        return this.http.get<WeatherApiResponse>(url).pipe(
+            map((data) => this.transformWeatherData(data, region))
+        );
     }
-    calculateRisk(temperature: number, humidite: number):IndiceRisque {
+    calculateRisk(temperature: number, humidite: number): IndiceRisque {
         if (temperature > 38 && humidite > 60) {
             return {
                 score: 85,
@@ -67,81 +67,81 @@ export class Meteo {
             'Dim'
         ];
 
-    jours.forEach(jour => {
+        jours.forEach(jour => {
 
-        const variation = Math.random() * 6 - 3;
+            const variation = Math.random() * 6 - 3;
 
-        const temperature = Number((temperatureActuelle + variation).toFixed(2));
+            const temperature = Number((temperatureActuelle + variation).toFixed(2));
 
-        historique.push({
-            jour: jour,
-            temperature: temperature
+            historique.push({
+                jour: jour,
+                temperature: temperature
+            });
         });
-    });
 
-    return historique;
+        return historique;
     }
-    
+
     transformWeatherData(data: WeatherApiResponse, region: string): DonneesMeteo {
 
-    const temperature = Number(data.main.temp.toFixed(2));
+        const temperature = Number(data.main.temp.toFixed(2));
 
-    const humidite = data.main.humidity;
+        const humidite = data.main.humidity;
 
-    const condition = data.weather[0].description;
+        const condition = data.weather[0].description;
 
-    const icone = data.weather[0].icon;
+        const icone = data.weather[0].icon;
 
-    const risque = this.calculateRisk(temperature, humidite);
+        const risque = this.calculateRisk(temperature, humidite);
 
-    const historique = this.generateHistory(temperature);
+        const historique = this.generateHistory(temperature);
 
-    return {
+        return {
 
-        region: region,
+            region: region,
 
-        temperature: temperature,
+            temperature: temperature,
 
-        humidite: humidite,
+            humidite: humidite,
 
-        condition: condition,
+            condition: condition,
 
-        icone: icone,
+            icone: icone,
 
-        historique: historique,
+            historique: historique,
 
-        risque: risque
+            risque: risque
 
-    };
-}
+        };
+    }
 
-getWeatherState(region: string): Observable<EtatMeteo> {
+    getWeatherState(region: string): Observable<EtatMeteo> {
 
-  return this.getWeatherByRegion(region).pipe(
+        return this.getWeatherByRegion(region).pipe(
 
-    map((data) => {
+            map((data) => {
 
-      return {
-        loading: false,
-        data: data
-      } as EtatMeteo;
+                return {
+                    loading: false,
+                    data: data
+                } as EtatMeteo;
 
-    }),
+            }),
 
-    startWith({
-      loading: true
-    } as EtatMeteo),
+            startWith({
+                loading: true
+            } as EtatMeteo),
 
-    catchError(() => {
+            catchError(() => {
 
-      return of({
-        loading: false,
-        error: "Impossible de récupérer les données météo"
-      } as EtatMeteo);
+                return of({
+                    loading: false,
+                    error: "Impossible de récupérer les données météo"
+                } as EtatMeteo);
 
-    })
+            })
 
-  );
+        );
 
-}
+    }
 }

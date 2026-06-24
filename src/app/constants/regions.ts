@@ -3,8 +3,7 @@ export interface CoordonneesRegion {
   longitude: number;
 }
 
-
-export const REGIONS: { [key: string]: CoordonneesRegion } = 
+export const REGIONS: { [key: string]: CoordonneesRegion } =
 {
 
   dakar: {

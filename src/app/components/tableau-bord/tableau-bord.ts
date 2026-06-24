@@ -3,10 +3,11 @@ import { Meteo } from '../../services/meteo';
 import { Geolocalisation } from '../../services/geolocalisation';
 import { EtatMeteo } from '../../modeles/etat-meteo.model';
 import { GraphiqueMeteo } from '../graphique-meteo/graphique-meteo';
+import { IndicateurRisque } from "../indicateur-risque/indicateur-risque";
 
 @Component({
   selector: 'app-tableau-bord',
-  imports: [GraphiqueMeteo],
+  imports: [GraphiqueMeteo, IndicateurRisque],
   templateUrl: './tableau-bord.html',
   styleUrl: './tableau-bord.css',
 })
@@ -21,7 +22,7 @@ export class TableauBord implements OnInit {
     loading: true
   });
 
-  // Région actuellement sélectionnée (utile pour la carte plus tard)
+  // Région actuellement sélectionnée 
   regionActuelle = signal<string>('');
 
   ngOnInit(): void {
@@ -46,12 +47,8 @@ export class TableauBord implements OnInit {
 
   }
 
-  /**
-   * Fonction principale du dashboard
-   * Elle sera aussi utilisée par la carte SVG plus tard
-   *
-   * Exemple futur côté carte :
-   * this.chargerRegion('dakar')
+  /*
+   * Fonction principale du dashboard utilisée aussi par la carte SVG 
    */
   chargerRegion(region: string): void {
 
