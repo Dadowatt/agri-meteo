@@ -14,3 +14,12 @@
 .nav-link:hover{
     color:#ffc107 !important;
 }
+
+.logo{
+  height:60px;
+  width:auto;
+  background-color: #fff;
+  border-radius: 50%;
+  gap: 10px;
+  margin-right: 7px;
+}
