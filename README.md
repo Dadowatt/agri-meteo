@@ -460,6 +460,8 @@ Le dossier généré pourra ensuite être déployé sur une plateforme comme :
 * Vercel
 * GitHub Pages
 
+## Lien de l'application déployé:
+https://agri-meteo-senegal.netlify.app/
 ---
 
 # Conclusion
