@@ -1,13 +1,27 @@
 <div
-  class="badge-risque"
-  [style.background]="risque.couleur">
+  class="risk-card"
+  [style.border-left]="'6px solid ' + risque.couleur">
 
-  <h3>
-    {{ risque.libelle }}
-  </h3>
+  <div class="d-flex justify-content-between align-items-center">
 
-  <strong>
-    {{ risque.score }} %
-  </strong>
+    <div>
+
+      <h6 class="mb-1">
+        Indice de risque
+      </h6>
+
+      <small>
+        {{ risque.libelle }}
+      </small>
+
+    </div>
+
+    <div class="risk-score">
+
+      {{ risque.score }}%
+
+    </div>
+
+  </div>
 
 </div>

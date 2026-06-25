@@ -1,16 +1,21 @@
-<div class="page">
+<div class="container-fluid py-2">
 
-  <div class="map-container">
+  <div class="row g-4">
 
-    <app-carte-senegal (regionSelectionnee)="dashboard.chargerRegion($event)">
-    </app-carte-senegal>
+    <div class="col-12 col-xl-8">
 
-  </div>
+      <app-carte-senegal
+        (regionSelectionnee)="dashboard.chargerRegion($event)">
+      </app-carte-senegal>
 
-  <div class="dashboard-container">
+    </div>
 
-    <app-tableau-bord #dashboard>
-    </app-tableau-bord>
+    <div class="col-12 col-xl-4">
+
+      <app-tableau-bord #dashboard>
+      </app-tableau-bord>
+
+    </div>
 
   </div>
 

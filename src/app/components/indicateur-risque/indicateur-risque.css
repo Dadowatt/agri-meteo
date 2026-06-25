@@ -1,7 +1,10 @@
-.badge-risque {
-  padding: 1rem;
-  border-radius: 12px;
-  color: white;
-  text-align: center;
-  font-weight: 600;
+.risk-card{
+  background:#f8f9fa;
+  border-radius:16px;
+  padding:18px;
+}
+
+.risk-score{
+  font-size:1.8rem;
+  font-weight:700;
 }

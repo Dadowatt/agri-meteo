@@ -4,10 +4,11 @@ import { Geolocalisation } from '../../services/geolocalisation';
 import { EtatMeteo } from '../../modeles/etat-meteo.model';
 import { GraphiqueMeteo } from '../graphique-meteo/graphique-meteo';
 import { IndicateurRisque } from "../indicateur-risque/indicateur-risque";
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tableau-bord',
-  imports: [GraphiqueMeteo, IndicateurRisque],
+  imports: [GraphiqueMeteo, IndicateurRisque, TitleCasePipe],
   templateUrl: './tableau-bord.html',
   styleUrl: './tableau-bord.css',
 })

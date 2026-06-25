@@ -1,22 +1,6 @@
-.page {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  min-height: 100vh;
+:host{
+  display:block;
+  min-height:100vh;
+  background:#f5f7fb;
 }
 
-.map-container {
-  flex: 2;
-}
-
-.dashboard-container {
-  flex: 1;
-}
-
-@media (max-width: 900px) {
-
-  .page {
-    flex-direction: column;
-  }
-
-}

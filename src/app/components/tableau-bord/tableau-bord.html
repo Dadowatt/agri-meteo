@@ -1,50 +1,115 @@
 @if (etatMeteo().loading) {
 
-<div class="loading">
-  Chargement des données météo...
+<div class="card border-0 shadow-sm rounded-4">
+
+  <div class="card-body text-center p-5">
+
+    <div class="spinner-border text-primary"></div>
+
+    <p class="mt-3 mb-0">
+      Chargement...
+    </p>
+
+  </div>
+
 </div>
 
 }
 
 @else if (etatMeteo().error) {
 
-<div class="error">
+<div class="alert alert-danger shadow-sm">
+
   {{ etatMeteo().error }}
+
 </div>
 
 }
 
 @else if (etatMeteo().data) {
 
-<div class="dashboard">
+<div class="card border-0 shadow-sm rounded-4">
 
-  <h2>
-    {{ etatMeteo().data!.region }}
-  </h2>
+  <div class="card-body p-4">
 
-  <img
-    [src]="'https://openweathermap.org/img/wn/' + etatMeteo().data!.icone + '@2x.png'"
-    [alt]="etatMeteo().data!.condition">
+    <span class="badge text-bg-primary mb-3">
+      Région sélectionnée
+    </span>
 
-  <p>
-    🌡 {{ etatMeteo().data!.temperature }} °C
-  </p>
+    <h2 class="fw-bold mb-3">
+      {{ etatMeteo().data!.region | titlecase }}
+    </h2>
 
-  <p>
-    💧 {{ etatMeteo().data!.humidite }} %
-  </p>
+    <div class="text-center">
 
-  <p>
-    {{ etatMeteo().data!.condition }}
-  </p>
+      <img
+        class="weather-icon"
+        [src]="'https://openweathermap.org/img/wn/' + etatMeteo().data!.icone + '@2x.png'"
+        [alt]="etatMeteo().data!.condition">
 
-  <app-indicateur-risque
-    [risque]="etatMeteo().data!.risque">
-  </app-indicateur-risque>
+      <div class="temperature">
+        {{ etatMeteo().data!.temperature }}°
+      </div>
 
-  <app-graphique-meteo
-    [historique]="etatMeteo().data!.historique">
-  </app-graphique-meteo>
+      <p class="text-muted">
+        {{ etatMeteo().data!.condition }}
+      </p>
+
+    </div>
+
+    <div class="row g-3 mt-3">
+
+      <div class="col-6">
+
+        <div class="stat-card">
+
+          <div class="stat-value">
+            {{ etatMeteo().data!.humidite }}%
+          </div>
+
+          <small>Humidité</small>
+
+        </div>
+
+      </div>
+
+      <div class="col-6">
+
+        <div class="stat-card">
+
+          <div class="stat-value">
+            {{ etatMeteo().data!.risque.score }}
+          </div>
+
+          <small>Indice</small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="mt-4">
+
+      <app-indicateur-risque
+        [risque]="etatMeteo().data!.risque">
+      </app-indicateur-risque>
+
+    </div>
+
+    <div class="mt-4">
+
+      <h5 class="fw-semibold mb-3">
+        Prévision 7 jours
+      </h5>
+
+      <app-graphique-meteo
+        [historique]="etatMeteo().data!.historique">
+      </app-graphique-meteo>
+
+    </div>
+
+  </div>
 
 </div>
 
